@@ -21,7 +21,8 @@ const verifyPassword = (req, res, next) => {
   if (password === 'chickennugget') {
     next();
   }
-  res.send('SORRY YOU NEED A PASSWORD!!!');
+  // res.send('PASSWORD NEEDED!')
+  throw new Error('Password required!')
 };
 
 
