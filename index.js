@@ -48,6 +48,10 @@ app.use((req, res) => {
   res.status(404).send('NOT FOUND!');
 });
 
+app.use((err, req, res, next) => {
+  console.log("")
+})
+
 app.listen(3000, () => {
   console.log('App is running on localhost:3000')
 });
