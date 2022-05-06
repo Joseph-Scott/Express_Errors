@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 
+const AppError = require('./AppError');
+
 
 app.use(morgan('tiny'));
 
@@ -21,8 +23,9 @@ const verifyPassword = (req, res, next) => {
   if (password === 'chickennugget') {
     next();
   }
+  throw new AppError('Password required', 401);
   // res.send('PASSWORD NEEDED!')
-  throw new Error('Password required!')
+  // throw new Error('Password required!', 400)
 };
 
 
