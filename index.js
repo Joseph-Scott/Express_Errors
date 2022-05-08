@@ -36,7 +36,7 @@ app.get('/', (req, res) => {
 
 app.get('/error', (req, res) => {
   chicken.fly()
-})
+});
 
 app.get('/dogs', (req, res) => {
   console.log(`REQUEST DATE: ${req.requestTime}`)
