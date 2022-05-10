@@ -31,7 +31,7 @@ const verifyPassword = (req, res, next) => {
 
 app.get('/', (req, res) => {
   console.log(`REQUEST DATE: ${req.requestTime}`)
-  res.send('HOME PAGE!');
+  res.send('HOME PAGE!')
 });
 
 app.get('/error', (req, res) => {
@@ -40,8 +40,12 @@ app.get('/error', (req, res) => {
 
 app.get('/dogs', (req, res) => {
   console.log(`REQUEST DATE: ${req.requestTime}`)
-  res.send('WOOF WOOF!');
+  res.send('WOOF WOOF!')
 });
+
+app.get('/admin', (req, res) => {
+  throw new AppError('You are not an Admin!', 403)
+})
 
 app.get('/secret', verifyPassword, (req, res) => {
   res.send('MY SECRET IS: Sometimes I wear headphones in public so I dont have to talk to anyone.');
@@ -51,12 +55,17 @@ app.use((req, res) => {
   res.status(404).send('NOT FOUND!');
 });
 
+// app.use((err, req, res, next) => {
+//   console.log("********************************************************")
+//   console.log("*********************ERROR******************************")
+//   console.log("********************************************************")
+//   console.log(err)
+//   next(err)
+// });
+
 app.use((err, req, res, next) => {
-  console.log("********************************************************")
-  console.log("*********************ERROR******************************")
-  console.log("********************************************************")
-  console.log(err)
-  next(err)
+  const { status = 500, message = 'Something Went Wrong' } = err;
+  res.status(status).send(message);
 });
 
 app.listen(3000, () => {
